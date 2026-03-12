@@ -4,6 +4,7 @@ from rich.table import Table
 
 from ds.margin import calculate_margin
 from ds.scout.cj import search_cj_products
+from ds.scout.trends import check_trends_batch
 
 
 @click.group()
@@ -93,6 +94,46 @@ def cj(query, limit):
             f"${p.base_cost:.2f}",
             "[green]Yes[/]" if p.has_us_warehouse else "[red]No[/]",
             "[green]Yes[/]" if p.has_au_warehouse else "[red]No[/]",
+        )
+
+    console.print(table)
+
+
+@cli.command()
+@click.argument("keywords", nargs=-1, required=True)
+@click.option(
+    "--timeframe",
+    default="today 3-m",
+    help="Trends timeframe (default: today 3-m)",
+)
+def trends(keywords, timeframe):
+    """Check Google Trends interest for product keywords."""
+    console = Console()
+    console.print(f"[cyan]Checking Google Trends for {len(keywords)} keyword(s)...[/]")
+
+    results = check_trends_batch(list(keywords), timeframe=timeframe)
+
+    direction_style = {
+        "rising": "bold green",
+        "stable": "bold yellow",
+        "declining": "bold red",
+        "no_data": "dim",
+    }
+
+    table = Table(title="Google Trends Analysis", border_style="blue")
+    table.add_column("Keyword", style="cyan")
+    table.add_column("Direction", justify="center")
+    table.add_column("Avg Interest", justify="right")
+    table.add_column("Recent Interest", justify="right")
+
+    for r in results:
+        direction = r["trend_direction"]
+        style = direction_style.get(direction, "")
+        table.add_row(
+            r["keyword"],
+            f"[{style}]{direction}[/]",
+            str(r["avg_interest"]),
+            str(r["recent_interest"]),
         )
 
     console.print(table)
