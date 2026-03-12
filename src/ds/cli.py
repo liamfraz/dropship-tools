@@ -3,6 +3,7 @@ from rich.console import Console
 from rich.table import Table
 
 from ds.margin import calculate_margin
+from ds.scout.cj import search_cj_products
 
 
 @click.group()
@@ -62,5 +63,36 @@ def margin(source, shipping, price, platform, ad_spend, daily_units):
         "Verdict",
         f"[{verdict_color.get(result['verdict'], '')}]{result['verdict']}[/]",
     )
+
+    console.print(table)
+
+
+@cli.command()
+@click.argument("query")
+@click.option("--limit", type=int, default=10, help="Max number of results")
+def cj(query, limit):
+    """Search CJ Dropshipping for products."""
+    console = Console()
+    console.print(f"[cyan]Searching CJ Dropshipping for:[/] {query}")
+
+    results = search_cj_products(query, limit=limit)
+
+    if not results:
+        console.print("[yellow]No results found (CJ may be blocking or no matches).[/]")
+        return
+
+    table = Table(title="CJ Dropshipping Results", border_style="blue")
+    table.add_column("Name", style="cyan", max_width=40)
+    table.add_column("Price", justify="right")
+    table.add_column("US WH", justify="center")
+    table.add_column("AU WH", justify="center")
+
+    for p in results:
+        table.add_row(
+            p.name,
+            f"${p.base_cost:.2f}",
+            "[green]Yes[/]" if p.has_us_warehouse else "[red]No[/]",
+            "[green]Yes[/]" if p.has_au_warehouse else "[red]No[/]",
+        )
 
     console.print(table)
