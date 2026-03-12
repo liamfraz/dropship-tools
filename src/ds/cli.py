@@ -212,3 +212,100 @@ def scout(keywords, limit):
         )
 
     console.print(table)
+
+
+@cli.command("add-product")
+@click.argument("name")
+@click.option("--source", required=True, type=float, help="Source/product cost")
+@click.option("--price", required=True, type=float, help="Sell price")
+@click.option(
+    "--platform",
+    type=click.Choice(["tiktok", "shopify"], case_sensitive=False),
+    default="tiktok",
+    help="Sales platform",
+)
+def add_product(name, source, price, platform):
+    """Add a product to track."""
+    tracker = Tracker()
+    tracker.add_product(name, source_cost=source, sell_price=price, platform=platform)
+    console = Console()
+    console.print(f"[green]Added product:[/] {name} (${source:.2f} -> ${price:.2f}, {platform})")
+
+
+@cli.command("log-sale")
+@click.argument("product")
+@click.option("--units", required=True, type=int, help="Number of units sold")
+@click.option("--revenue", required=True, type=float, help="Total revenue")
+def log_sale(product, units, revenue):
+    """Log a sale for a tracked product."""
+    tracker = Tracker()
+    tracker.log_sale(product, units=units, revenue=revenue)
+    console = Console()
+    console.print(f"[green]Logged sale:[/] {product} — {units} units, ${revenue:.2f}")
+
+
+@cli.command("log-spend")
+@click.argument("product")
+@click.option("--amount", required=True, type=float, help="Ad spend amount")
+@click.option(
+    "--platform",
+    type=click.Choice(["tiktok", "facebook"], case_sensitive=False),
+    default="tiktok",
+    help="Ad platform",
+)
+def log_spend(product, amount, platform):
+    """Log ad spend for a tracked product."""
+    tracker = Tracker()
+    tracker.log_ad_spend(product, amount=amount, platform=platform)
+    console = Console()
+    console.print(f"[green]Logged ad spend:[/] {product} — ${amount:.2f} on {platform}")
+
+
+@cli.command()
+def dashboard():
+    """Show performance dashboard for all tracked products."""
+    tracker = Tracker()
+    products = tracker.list_products()
+    console = Console()
+
+    if not products:
+        console.print("[yellow]No products tracked yet. Use 'ds add-product' to start.[/]")
+        return
+
+    verdict_color = {
+        "SCALE": "bold green",
+        "HOLD": "bold yellow",
+        "WATCH": "bold cyan",
+        "KILL": "bold red",
+        "TESTING": "dim",
+    }
+
+    table = Table(title="Product Performance Dashboard", border_style="blue")
+    table.add_column("Product", style="cyan")
+    table.add_column("Units", justify="right")
+    table.add_column("Revenue", justify="right")
+    table.add_column("Ad Spend", justify="right")
+    table.add_column("Profit", justify="right")
+    table.add_column("ROAS", justify="right")
+    table.add_column("Verdict", justify="center")
+
+    for p in products:
+        stats = tracker.get_product_stats(p["name"])
+        if not stats:
+            continue
+
+        profit_style = "green" if stats["profit"] >= 0 else "red"
+        verdict = stats["verdict"]
+        v_style = verdict_color.get(verdict, "")
+
+        table.add_row(
+            stats["product"],
+            str(stats["total_units"]),
+            f"${stats['total_revenue']:.2f}",
+            f"${stats['total_ad_spend']:.2f}",
+            f"[{profit_style}]${stats['profit']:.2f}[/]",
+            f"{stats['roas']:.2f}x",
+            f"[{v_style}]{verdict}[/]",
+        )
+
+    console.print(table)
