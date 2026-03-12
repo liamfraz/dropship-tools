@@ -9,6 +9,7 @@ from ds.scout.research import ProductCandidate, rank_candidates
 from ds.scout.trends import check_trend, check_trends_batch
 from ds.content.ads import generate_ad_copy
 from ds.content.listings import generate_listing
+from ds.content.scripts import generate_scripts
 
 
 @click.group()
@@ -366,3 +367,25 @@ def adcopy(product_name, script, price, url):
     )
 
     console.print(f"\n{result}")
+
+
+@cli.command()
+@click.argument("product_name")
+@click.option("--benefit", multiple=True, help="Key product benefit (repeatable)")
+@click.option("--price", required=True, type=float, help="Product price")
+@click.option("--hooks", default=5, type=int, help="Number of hook variations")
+def scripts(product_name, benefit, price, hooks):
+    """Generate TikTok video scripts with multiple hook variations."""
+    console = Console()
+    console.print(f"[cyan]Generating {hooks} script hooks for:[/] {product_name}")
+
+    benefits = list(benefit) if benefit else ["Great product"]
+    result = generate_scripts(
+        product_name=product_name,
+        key_benefits=benefits,
+        price=price,
+        num_hooks=hooks,
+    )
+
+    console.print()
+    console.print(result)
