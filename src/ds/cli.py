@@ -2,9 +2,11 @@ import click
 from rich.console import Console
 from rich.table import Table
 
+from ds.config import TARGET_MARKUP
 from ds.margin import calculate_margin
 from ds.scout.cj import search_cj_products
-from ds.scout.trends import check_trends_batch
+from ds.scout.research import ProductCandidate, rank_candidates
+from ds.scout.trends import check_trend, check_trends_batch
 
 
 @click.group()
@@ -134,6 +136,79 @@ def trends(keywords, timeframe):
             f"[{style}]{direction}[/]",
             str(r["avg_interest"]),
             str(r["recent_interest"]),
+        )
+
+    console.print(table)
+
+
+@cli.command()
+@click.argument("keywords", nargs=-1, required=True)
+@click.option("--limit", type=int, default=15, help="Max products to display")
+def scout(keywords, limit):
+    """Combined product scout: trends + CJ search with scoring."""
+    console = Console()
+    console.print(f"[cyan]Scouting {len(keywords)} keyword(s)...[/]")
+
+    candidates: list[ProductCandidate] = []
+
+    for keyword in keywords:
+        console.print(f"  [dim]Checking trends for '{keyword}'...[/]")
+        trend = check_trend(keyword)
+
+        console.print(f"  [dim]Searching CJ for '{keyword}'...[/]")
+        products = search_cj_products(keyword, limit=limit)
+
+        for p in products:
+            suggested_sell = round(p.base_cost * TARGET_MARKUP, 2)
+            candidates.append(
+                ProductCandidate(
+                    name=p.name,
+                    keyword=keyword,
+                    source_price=p.price,
+                    shipping_cost=p.shipping_cost,
+                    suggested_sell_price=suggested_sell,
+                    trend_direction=trend["trend_direction"],
+                    trend_interest=float(trend["avg_interest"]),
+                    source_url=p.url,
+                )
+            )
+
+    if not candidates:
+        console.print("[yellow]No products found for any keyword.[/]")
+        return
+
+    ranked = rank_candidates(candidates)[:limit]
+
+    table = Table(title="Product Scout Results", border_style="blue")
+    table.add_column("Score", justify="right", width=6)
+    table.add_column("Name", style="cyan", max_width=40)
+    table.add_column("Source $", justify="right")
+    table.add_column("Sell $", justify="right")
+    table.add_column("Trend", justify="center")
+    table.add_column("Keyword", style="dim")
+
+    for candidate, score in ranked:
+        if score >= 60:
+            score_style = "bold green"
+        elif score >= 40:
+            score_style = "bold yellow"
+        else:
+            score_style = "bold red"
+
+        direction_style = {
+            "rising": "green",
+            "stable": "yellow",
+            "declining": "red",
+            "no_data": "dim",
+        }.get(candidate.trend_direction, "")
+
+        table.add_row(
+            f"[{score_style}]{score:.0f}[/]",
+            candidate.name,
+            f"${candidate.source_price:.2f}",
+            f"${candidate.suggested_sell_price:.2f}",
+            f"[{direction_style}]{candidate.trend_direction}[/]",
+            candidate.keyword,
         )
 
     console.print(table)
