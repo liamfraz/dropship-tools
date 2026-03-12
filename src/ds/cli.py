@@ -7,6 +7,8 @@ from ds.margin import calculate_margin
 from ds.scout.cj import search_cj_products
 from ds.scout.research import ProductCandidate, rank_candidates
 from ds.scout.trends import check_trend, check_trends_batch
+from ds.content.ads import generate_ad_copy
+from ds.content.listings import generate_listing
 
 
 @click.group()
@@ -309,3 +311,58 @@ def dashboard():
         )
 
     console.print(table)
+
+
+@cli.command()
+@click.argument("product_name")
+@click.option("--category", default="General", help="Product category")
+@click.option("--features", multiple=True, help="Key product features (repeatable)")
+@click.option("--price", required=True, type=float, help="Product price")
+@click.option(
+    "--platform",
+    type=click.Choice(["tiktok", "shopify"], case_sensitive=False),
+    default="tiktok",
+    help="Listing platform",
+)
+def listing(product_name, category, features, price, platform):
+    """Generate AI product listing for TikTok Shop or Shopify."""
+    console = Console()
+    console.print(f"[cyan]Generating {platform} listing for:[/] {product_name}")
+
+    result = generate_listing(
+        product_name=product_name,
+        category=category,
+        key_features=list(features) if features else ["Quality product"],
+        price=price,
+        platform=platform,
+    )
+
+    if "title" in result:
+        console.print(f"\n[bold green]TITLE:[/] {result['title']}")
+    if "description" in result:
+        console.print(f"\n[bold green]DESCRIPTION:[/] {result['description']}")
+    if "tags" in result:
+        console.print(f"\n[bold green]TAGS:[/] {', '.join(result['tags'])}")
+
+    if not any(k in result for k in ("title", "description", "tags")):
+        console.print(f"\n[yellow]Raw output:[/]\n{result['raw']}")
+
+
+@cli.command()
+@click.argument("product_name")
+@click.option("--script", required=True, type=str, help="TikTok script text to convert")
+@click.option("--price", required=True, type=float, help="Product price")
+@click.option("--url", required=True, type=str, help="Landing page URL")
+def adcopy(product_name, script, price, url):
+    """Convert a TikTok script into Facebook/Instagram ad copy."""
+    console = Console()
+    console.print(f"[cyan]Generating ad copy for:[/] {product_name}")
+
+    result = generate_ad_copy(
+        product_name=product_name,
+        tiktok_script=script,
+        price=price,
+        landing_url=url,
+    )
+
+    console.print(f"\n{result}")
