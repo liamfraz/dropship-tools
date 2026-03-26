@@ -1,8 +1,22 @@
 [project]
 name = "dropship-tools"
 version = "0.1.0"
-description = "Dropshipping automation toolkit"
+description = "AI-powered dropshipping automation toolkit — product research, listing generation, and ad copy"
+readme = "README.md"
+license = "MIT"
 requires-python = ">=3.12"
+authors = [
+    { name = "Liam Frazer" },
+]
+keywords = ["dropshipping", "ecommerce", "tiktok-shop", "shopify", "ai", "automation"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business",
+]
 dependencies = [
     "click>=8.1",
     "rich>=13.0",
@@ -12,6 +26,11 @@ dependencies = [
     "beautifulsoup4>=4.12",
     "httpx>=0.27",
 ]
+
+[project.urls]
+Homepage = "https://github.com/liamfraz/dropship-tools"
+Repository = "https://github.com/liamfraz/dropship-tools"
+Issues = "https://github.com/liamfraz/dropship-tools/issues"
 
 [project.scripts]
 ds = "ds.cli:cli"
