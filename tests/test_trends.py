@@ -8,7 +8,7 @@ from ds.scout.trends import check_trend, check_trends_batch
 
 # --- Live tests (require internet, may fail due to rate limiting) ---
 
-
+@pytest.mark.skip(reason="Live API — rate-limited by Google (429); use mocked tests instead")
 def test_check_trend_returns_dict():
     result = check_trend("water bottle")
     assert "keyword" in result
@@ -18,6 +18,7 @@ def test_check_trend_returns_dict():
     assert isinstance(result["avg_interest"], (int, float))
 
 
+@pytest.mark.skip(reason="Live API — rate-limited by Google (429); use mocked tests instead")
 def test_check_trend_multiple_keywords():
     results = check_trends_batch(["water bottle", "phone case"])
     assert len(results) == 2
