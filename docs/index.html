@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropship Tools - CLI Toolkit for Dropshipping Automation</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0e17;
+      --surface: #111827;
+      --surface-2: #1a2332;
+      --border: #1e293b;
+      --text: #e2e8f0;
+      --text-dim: #94a3b8;
+      --accent: #38bdf8;
+      --accent-dim: #0ea5e9;
+      --green: #22c55e;
+      --yellow: #eab308;
+      --red: #ef4444;
+      --mono: 'SF Mono', 'Cascadia Code', 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* Nav */
+    nav {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-family: var(--mono);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .nav-brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a { color: var(--text-dim); font-size: 14px; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* Hero */
+    .hero {
+      padding: 100px 0 80px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      font-size: 20px;
+      color: var(--text-dim);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .install-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 24px;
+      font-family: var(--mono);
+      font-size: 16px;
+    }
+    .install-box .prompt { color: var(--green); }
+    .install-box code { color: var(--text); }
+
+    /* Features */
+    .features {
+      padding: 80px 0;
+    }
+    .features h2 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 48px;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: var(--accent-dim); }
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 16px;
+      background: var(--surface-2);
+    }
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    /* Terminal Demo */
+    .demo {
+      padding: 80px 0;
+    }
+    .demo h2 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 48px;
+    }
+    .terminal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 720px;
+      margin: 0 auto 32px;
+    }
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .terminal-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+    }
+    .terminal-dot.r { background: var(--red); }
+    .terminal-dot.y { background: var(--yellow); }
+    .terminal-dot.g { background: var(--green); }
+    .terminal-title {
+      flex: 1;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dim);
+      font-family: var(--mono);
+    }
+    .terminal-body {
+      padding: 20px;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-x: auto;
+    }
+    .terminal-body .prompt { color: var(--green); }
+    .terminal-body .cmd { color: var(--text); }
+    .terminal-body .flag { color: var(--accent); }
+    .terminal-body .val { color: var(--yellow); }
+    .terminal-body .comment { color: var(--text-dim); }
+    .terminal-body .label { color: #94a3b8; }
+    .terminal-body .strong { color: var(--green); font-weight: 700; }
+    .terminal-body .warn { color: var(--yellow); font-weight: 700; }
+    .terminal-body .err { color: var(--red); font-weight: 700; }
+
+    .terminal-body .row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding: 2px 0;
+    }
+    .terminal-body .row:last-child { border-bottom: none; }
+
+    /* Commands */
+    .commands {
+      padding: 80px 0;
+    }
+    .commands h2 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 48px;
+    }
+    .cmd-table {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+    .cmd-table th,
+    .cmd-table td {
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cmd-table th {
+      color: var(--text-dim);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+    .cmd-table td:first-child {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    .cmd-table td:last-child {
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    /* CTA */
+    .cta {
+      padding: 80px 0;
+      text-align: center;
+    }
+    .cta h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .cta p {
+      color: var(--text-dim);
+      margin-bottom: 32px;
+      font-size: 18px;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px 32px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .cta-btn:hover {
+      background: var(--accent-dim);
+      text-decoration: none;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 16px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .install-box { font-size: 14px; padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <div class="nav-brand"><span>ds</span> dropship-tools</div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#demo">Demo</a>
+        <a href="#commands">Commands</a>
+        <a href="https://github.com/liamfrazer/dropship-tools">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Dropshipping automation<br><span>from your terminal</span></h1>
+      <p>Product research, margin analysis, AI-generated listings, and performance tracking. One CLI, zero browser tabs.</p>
+      <div class="hero-cta">
+        <div class="install-box">
+          <span class="prompt">$</span>
+          <code>pip install dropship-tools</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <div class="container">
+      <h2>Everything you need to find, validate, and sell</h2>
+      <div class="feature-grid">
+
+        <div class="feature-card">
+          <div class="feature-icon">&#x1F50D;</div>
+          <h3>Product Scout</h3>
+          <p>Search CJ Dropshipping, check Google Trends, and score products automatically. One command combines trends + catalog search with warehouse availability.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">&#x1F4CA;</div>
+          <h3>Margin Calculator</h3>
+          <p>Factor in source cost, shipping, platform fees (TikTok 5%, Shopify 2.9%), and ad spend. Get a clear STRONG / OK / SKIP verdict instantly.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">&#x1F4DD;</div>
+          <h3>AI Listings</h3>
+          <p>Generate optimized product titles, descriptions, and tags for TikTok Shop or Shopify. Powered by Claude.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">&#x1F3AC;</div>
+          <h3>Video Scripts</h3>
+          <p>Generate TikTok video scripts with multiple hook variations. Convert scripts to Facebook/Instagram ad copy in one step.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">&#x1F4C8;</div>
+          <h3>Trend Analysis</h3>
+          <p>Check Google Trends for any keyword. See direction (rising/stable/declining), average interest, and recent momentum side by side.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">&#x1F3AF;</div>
+          <h3>Performance Dashboard</h3>
+          <p>Track products, log sales and ad spend. Dashboard shows revenue, profit, ROAS, and automated SCALE / HOLD / KILL verdicts.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" class="demo">
+    <div class="container">
+      <h2>See it in action</h2>
+
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="terminal-dot r"></div>
+          <div class="terminal-dot y"></div>
+          <div class="terminal-dot g"></div>
+          <div class="terminal-title">ds margin</div>
+        </div>
+        <div class="terminal-body">
+          <div><span class="prompt">$</span> <span class="cmd">ds margin</span> <span class="flag">--source</span> <span class="val">8.50</span> <span class="flag">--shipping</span> <span class="val">3.00</span> <span class="flag">--price</span> <span class="val">29.99</span></div>
+          <br>
+          <div class="comment">  Margin Analysis</div>
+          <div class="row"><span class="label">  Source Cost</span><span>$8.50</span></div>
+          <div class="row"><span class="label">  Shipping Cost</span><span>$3.00</span></div>
+          <div class="row"><span class="label">  Base Cost</span><span>$11.50</span></div>
+          <div class="row"><span class="label">  Sell Price</span><span>$29.99</span></div>
+          <div class="row"><span class="label">  Platform Fee</span><span>$1.50</span></div>
+          <div class="row"><span class="label">  Profit/Unit</span><span>$17.00</span></div>
+          <div class="row"><span class="label">  Markup</span><span>2.61x</span></div>
+          <div class="row"><span class="label">  ROI</span><span>130.7%</span></div>
+          <div class="row"><span class="label">  Verdict</span><span class="strong">STRONG</span></div>
+        </div>
+      </div>
+
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="terminal-dot r"></div>
+          <div class="terminal-dot y"></div>
+          <div class="terminal-dot g"></div>
+          <div class="terminal-title">ds scout</div>
+        </div>
+        <div class="terminal-body">
+          <div><span class="prompt">$</span> <span class="cmd">ds scout</span> <span class="val">"posture corrector"</span> <span class="val">"neck massager"</span></div>
+          <br>
+          <div class="comment">  Product Scout Results</div>
+          <div class="row"><span class="label">  Score  Name                         Source  Sell   Trend</span><span></span></div>
+          <div class="row"><span class="label">  </span><span class="strong">82</span>     Posture Corrector Pro         $6.20   $18.60  <span class="strong">rising</span></div>
+          <div class="row"><span class="label">  </span><span class="strong">74</span>     Electric Neck Massager        $11.40  $34.20  <span class="strong">rising</span></div>
+          <div class="row"><span class="label">  </span><span class="warn">58</span>     Back Support Belt             $8.90   $26.70  <span class="warn">stable</span></div>
+          <div class="row"><span class="label">  </span><span class="err">31</span>     Basic Posture Strap           $3.10   $9.30   <span class="err">declining</span></div>
+        </div>
+      </div>
+
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="terminal-dot r"></div>
+          <div class="terminal-dot y"></div>
+          <div class="terminal-dot g"></div>
+          <div class="terminal-title">ds dashboard</div>
+        </div>
+        <div class="terminal-body">
+          <div><span class="prompt">$</span> <span class="cmd">ds dashboard</span></div>
+          <br>
+          <div class="comment">  Product Performance Dashboard</div>
+          <div class="row"><span class="label">  Product              Units  Revenue    Ad Spend  ROAS   Verdict</span><span></span></div>
+          <div class="row"><span class="label">  LED Strip Lights       47   $1,174.53  $180.00   6.53x  </span><span class="strong">SCALE</span></div>
+          <div class="row"><span class="label">  Posture Corrector      23   $689.77    $220.00   3.14x  </span><span class="warn">HOLD</span></div>
+          <div class="row"><span class="label">  Phone Stand             8   $159.92    $95.00    1.68x  </span><span class="err">KILL</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="commands" class="commands">
+    <div class="container">
+      <h2>All commands</h2>
+      <table class="cmd-table">
+        <thead>
+          <tr><th>Command</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ds margin</td><td>Calculate profit margins with platform fees and ad spend</td></tr>
+          <tr><td>ds cj</td><td>Search CJ Dropshipping product catalog</td></tr>
+          <tr><td>ds trends</td><td>Check Google Trends interest for product keywords</td></tr>
+          <tr><td>ds scout</td><td>Combined trends + product search with automated scoring</td></tr>
+          <tr><td>ds listing</td><td>AI-generate product listings for TikTok Shop or Shopify</td></tr>
+          <tr><td>ds adcopy</td><td>Convert TikTok scripts to Facebook/Instagram ad copy</td></tr>
+          <tr><td>ds scripts</td><td>Generate TikTok video scripts with hook variations</td></tr>
+          <tr><td>ds add-product</td><td>Add a product to your tracking list</td></tr>
+          <tr><td>ds log-sale</td><td>Log a sale for a tracked product</td></tr>
+          <tr><td>ds log-spend</td><td>Record ad spend for a tracked product</td></tr>
+          <tr><td>ds dashboard</td><td>View performance dashboard with ROAS and verdicts</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Start finding winners</h2>
+      <p>Python 3.12+ required. Works on macOS, Linux, and Windows.</p>
+      <a href="https://github.com/liamfrazer/dropship-tools" class="cta-btn">View on GitHub</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Dropship Tools &mdash; MIT License</p>
+    </div>
+  </footer>
+
+</body>
+</html>
