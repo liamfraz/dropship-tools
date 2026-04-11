@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropshipping Profit Margin Calculator: The Formula Every Seller Needs | Dropship Tools</title>
+  <meta name="description" content="Free dropshipping profit margin calculator. Enter product cost, shipping, platform fee, and sale price to get net profit and margin % instantly. Includes the formula explained.">
+  <meta property="og:title" content="Dropshipping Profit Margin Calculator: The Formula Every Seller Needs">
+  <meta property="og:description" content="Free interactive calculator: enter cost, shipping, fees, and sale price — get net profit and margin % instantly. Plus the formula explained.">
+  <meta property="og:image" content="https://dropship-tools.vercel.app/og/dropshipping-profit-margin-calculator.png">
+  <meta property="og:url" content="https://dropship-tools.vercel.app/blog/dropshipping-profit-margin-calculator">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dropshipping Profit Margin Calculator: The Formula Every Seller Needs">
+  <meta name="twitter:description" content="Free interactive calculator: enter cost, shipping, fees, and sale price — get net profit and margin % instantly.">
+  <meta name="twitter:image" content="https://dropship-tools.vercel.app/og/dropshipping-profit-margin-calculator.png">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0e17;
+      --surface: #111827;
+      --surface-2: #1a2332;
+      --border: #1e293b;
+      --text: #e2e8f0;
+      --text-dim: #94a3b8;
+      --accent: #38bdf8;
+      --accent-dim: #0ea5e9;
+      --green: #22c55e;
+      --green-dim: #16a34a;
+      --yellow: #eab308;
+      --red: #ef4444;
+      --mono: 'SF Mono', 'Cascadia Code', 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    nav {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-family: var(--mono);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a { color: var(--text-dim); font-size: 14px; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-links a.active { color: var(--text); }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px 32px;
+      border-radius: 8px;
+      transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+      font-family: var(--sans);
+      text-decoration: none;
+    }
+    .cta-btn:hover {
+      background: var(--accent-dim);
+      text-decoration: none;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    .article-hero {
+      padding: 60px 0 40px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+    .article-meta {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+      font-family: var(--mono);
+    }
+    .article-hero h1 {
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      max-width: 800px;
+      margin-bottom: 16px;
+    }
+    .article-hero .lead {
+      font-size: 18px;
+      color: var(--text-dim);
+      max-width: 720px;
+    }
+    .article-body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding-bottom: 80px;
+    }
+    .article-body h2 {
+      font-size: 26px;
+      font-weight: 700;
+      margin: 48px 0 16px;
+      color: var(--text);
+    }
+    .article-body h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 32px 0 12px;
+      color: var(--text);
+    }
+    .article-body p {
+      color: var(--text-dim);
+      margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+    .article-body ul, .article-body ol {
+      padding-left: 24px;
+      margin-bottom: 20px;
+    }
+    .article-body li {
+      color: var(--text-dim);
+      font-size: 16px;
+      line-height: 1.75;
+      margin-bottom: 8px;
+    }
+    .article-body strong { color: var(--text); }
+    .article-body a { color: var(--accent); }
+    .highlight-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 28px 0;
+    }
+    .highlight-box p { margin-bottom: 0; }
+    .cta-inline {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin: 48px 0;
+    }
+    .cta-inline h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .cta-inline p {
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+    .cta-section {
+      padding: 80px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .cta-section h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      color: var(--text-dim);
+      margin-bottom: 32px;
+      font-size: 18px;
+    }
+
+    /* ===== CALCULATOR ===== */
+    .calc-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      margin: 40px 0;
+    }
+    .calc-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .calc-subtitle {
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-bottom: 28px;
+    }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .field-group .field-hint {
+      font-size: 11px;
+      color: var(--text-dim);
+      opacity: 0.7;
+      margin-top: 2px;
+    }
+    .input-wrap {
+      position: relative;
+    }
+    .input-wrap .prefix {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      font-size: 15px;
+      font-family: var(--mono);
+      pointer-events: none;
+    }
+    .input-wrap .suffix {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      font-size: 13px;
+      font-family: var(--mono);
+      pointer-events: none;
+    }
+    .calc-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 11px 40px 11px 28px;
+      color: var(--text);
+      font-size: 16px;
+      font-family: var(--mono);
+      outline: none;
+      transition: border-color 0.15s;
+      -moz-appearance: textfield;
+    }
+    .calc-input::-webkit-outer-spin-button,
+    .calc-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+    .calc-input:focus { border-color: var(--accent); }
+    .calc-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 4px 0 24px;
+    }
+    .calc-results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .result-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+    .result-card .result-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      font-family: var(--mono);
+      margin-bottom: 8px;
+    }
+    .result-card .result-value {
+      font-size: 26px;
+      font-weight: 800;
+      font-family: var(--mono);
+      color: var(--text);
+      transition: color 0.2s;
+    }
+    .result-card .result-sub {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+    .verdict-bar {
+      border-radius: 10px;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+    .verdict-bar.strong { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); }
+    .verdict-bar.ok { background: rgba(234,179,8,0.1); border: 1px solid rgba(234,179,8,0.3); }
+    .verdict-bar.red { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); }
+    .verdict-bar.empty { background: var(--bg); border: 1px solid var(--border); }
+    .verdict-icon { font-size: 20px; flex-shrink: 0; }
+    .verdict-text { font-size: 14px; font-weight: 600; }
+    .verdict-text span { font-weight: 400; color: var(--text-dim); }
+    .cost-breakdown {
+      margin-top: 20px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+    .cost-breakdown-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      font-family: var(--mono);
+      margin-bottom: 12px;
+    }
+    .cost-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-dim);
+    }
+    .cost-row:last-child { border-bottom: none; }
+    .cost-row .cost-label { color: var(--text-dim); }
+    .cost-row .cost-val { font-family: var(--mono); color: var(--text); }
+    .cost-row.total { color: var(--text); font-weight: 700; }
+    .cost-row.total .cost-val { color: var(--green); }
+
+    @media (max-width: 640px) {
+      .article-hero h1 { font-size: 28px; }
+      .calc-grid { grid-template-columns: 1fr; }
+      .calc-results { grid-template-columns: 1fr 1fr; }
+      .calc-results .result-card:last-child { grid-column: span 2; }
+      .calc-wrapper { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/" class="nav-brand"><span>ds</span> dropship-tools</a>
+      <div class="nav-links">
+        <a href="/#features">Features</a>
+        <a href="/#demo">Demo</a>
+        <a href="/blog" class="active">Blog</a>
+        <a href="https://github.com/liamfrazer/dropship-tools">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <article>
+    <div class="article-hero">
+      <div class="container">
+        <div class="article-meta">April 2026 &middot; 6 min read &middot; Profit Calculator</div>
+        <h1>Dropshipping Profit Margin Calculator: The Formula Every Seller Needs</h1>
+        <p class="lead">Gross margin lies. A product sourcing at $10 and selling at $40 sounds like a 75% margin winner — until you account for platform fees, payment processing, shipping, and ad spend. This calculator gives you real net margin. Enter your numbers and see exactly what you keep per sale.</p>
+      </div>
+    </div>
+
+    <div class="article-body">
+
+      <!-- ===== CALCULATOR ===== -->
+      <div class="calc-wrapper">
+        <div class="calc-title">Dropshipping Margin Calculator</div>
+        <div class="calc-subtitle">All values in AUD. Platform fee defaults to Shopify (2.9% + $0.30).</div>
+
+        <div class="calc-grid">
+          <div class="field-group">
+            <label for="productCost">Product Cost (COGS)</label>
+            <div class="input-wrap">
+              <span class="prefix">$</span>
+              <input class="calc-input" type="number" id="productCost" value="12" min="0" step="0.01">
+            </div>
+            <div class="field-hint">What you pay the supplier per unit</div>
+          </div>
+          <div class="field-group">
+            <label for="shippingCost">Shipping Cost</label>
+            <div class="input-wrap">
+              <span class="prefix">$</span>
+              <input class="calc-input" type="number" id="shippingCost" value="5" min="0" step="0.01">
+            </div>
+            <div class="field-hint">CN→AU shipping per order (ePacket ~$5, CJ Packet ~$7, DHL ~$20)</div>
+          </div>
+          <div class="field-group">
+            <label for="platformFeePercent">Platform Fee %</label>
+            <div class="input-wrap">
+              <input class="calc-input" type="number" id="platformFeePercent" value="2.9" min="0" step="0.1" style="padding-left:12px; padding-right:28px;">
+              <span class="suffix">%</span>
+            </div>
+            <div class="field-hint">Shopify: 2.9%. WooCommerce + Stripe: 2.9%. eBay AU: 13.5%</div>
+          </div>
+          <div class="field-group">
+            <label for="platformFeeFixed">Platform Fixed Fee</label>
+            <div class="input-wrap">
+              <span class="prefix">$</span>
+              <input class="calc-input" type="number" id="platformFeeFixed" value="0.30" min="0" step="0.01">
+            </div>
+            <div class="field-hint">Shopify: $0.30. PayPal: $0.30. eBay AU: $0</div>
+          </div>
+          <div class="field-group">
+            <label for="adSpendPercent">Ad Spend % of Revenue</label>
+            <div class="input-wrap">
+              <input class="calc-input" type="number" id="adSpendPercent" value="25" min="0" max="100" step="1" style="padding-left:12px; padding-right:28px;">
+              <span class="suffix">%</span>
+            </div>
+            <div class="field-hint">Typical range: 20–40%. Set 0 if organic only.</div>
+          </div>
+          <div class="field-group">
+            <label for="salePrice">Sale Price</label>
+            <div class="input-wrap">
+              <span class="prefix">$</span>
+              <input class="calc-input" type="number" id="salePrice" value="45" min="0" step="0.01">
+            </div>
+            <div class="field-hint">What the customer pays (ex-GST if you're GST-registered)</div>
+          </div>
+        </div>
+
+        <hr class="calc-divider">
+
+        <div class="calc-results">
+          <div class="result-card">
+            <div class="result-label">Net Profit</div>
+            <div class="result-value" id="netProfit">—</div>
+            <div class="result-sub">per sale after all costs</div>
+          </div>
+          <div class="result-card">
+            <div class="result-label">Net Margin</div>
+            <div class="result-value" id="netMargin">—</div>
+            <div class="result-sub">of sale price</div>
+          </div>
+          <div class="result-card">
+            <div class="result-label">Break-even ROAS</div>
+            <div class="result-value" id="breakEvenRoas">—</div>
+            <div class="result-sub">minimum ad return needed</div>
+          </div>
+        </div>
+
+        <div class="verdict-bar empty" id="verdictBar">
+          <span class="verdict-icon" id="verdictIcon">—</span>
+          <span class="verdict-text" id="verdictText">Enter your numbers above to see your margin verdict</span>
+        </div>
+
+        <div class="cost-breakdown" id="costBreakdown" style="display:none;">
+          <div class="cost-breakdown-title">Cost Breakdown Per Sale</div>
+          <div class="cost-row"><span class="cost-label">Sale Price</span><span class="cost-val" id="bSalePrice">—</span></div>
+          <div class="cost-row"><span class="cost-label">− Product Cost</span><span class="cost-val" id="bProductCost">—</span></div>
+          <div class="cost-row"><span class="cost-label">− Shipping</span><span class="cost-val" id="bShipping">—</span></div>
+          <div class="cost-row"><span class="cost-label">− Platform Fee</span><span class="cost-val" id="bPlatformFee">—</span></div>
+          <div class="cost-row"><span class="cost-label">− Ad Spend</span><span class="cost-val" id="bAdSpend">—</span></div>
+          <div class="cost-row total"><span class="cost-label">= Net Profit</span><span class="cost-val" id="bNetProfit">—</span></div>
+        </div>
+      </div>
+      <!-- ===== END CALCULATOR ===== -->
+
+      <h2>The Formula Explained</h2>
+      <p>The calculator above uses this formula, which reflects the real cost stack for a dropshipping sale:</p>
+
+      <div class="highlight-box">
+        <p><strong>Net Profit = Sale Price − Product Cost − Shipping − Platform Fee − Ad Spend</strong><br><br>
+        <strong>Net Margin % = (Net Profit ÷ Sale Price) × 100</strong><br><br>
+        <strong>Break-even ROAS = Sale Price ÷ Ad Spend</strong></p>
+      </div>
+
+      <p>Let's walk through each component:</p>
+
+      <h3>Product Cost (COGS)</h3>
+      <p>This is the price you pay your supplier per unit. On AliExpress or CJ Dropshipping, this is the listed price per item. Don't confuse it with your landed cost — shipping is a separate line item because it varies by fulfilment method and changes as you scale.</p>
+
+      <h3>Shipping Cost</h3>
+      <p>For CN-to-AU dropshipping, common rates are: AliExpress ePacket $4–$7, CJ Packet $6–$10, DHL Express $18–$28. If you're using a local AU fulfilment centre (3PL), your shipping per order might be $8–$12 domestically but your landed inventory cost increases. Always model the actual shipping method you plan to use — not the cheapest option that may result in 25-day delivery times.</p>
+
+      <h3>Platform Fee</h3>
+      <p>Every platform charges a percentage of sale price plus a fixed amount per transaction. Common rates:</p>
+      <ul>
+        <li><strong>Shopify + Shopify Payments AU:</strong> 2.9% + $0.30 (basic plan)</li>
+        <li><strong>Shopify + third-party gateway:</strong> 2.9% + 0.5–2% additional</li>
+        <li><strong>eBay AU:</strong> 13.5% (no fixed fee, but high percentage)</li>
+        <li><strong>Amazon AU:</strong> 8–15% depending on category</li>
+        <li><strong>WooCommerce + Stripe AU:</strong> 1.7% + $0.30 (lower, but you pay hosting)</li>
+      </ul>
+
+      <h3>Ad Spend as a % of Revenue</h3>
+      <p>This is where most sellers underestimate costs. At scale, paid traffic (Meta, TikTok Ads, Google Shopping) typically costs 20–40% of revenue. A new store testing a product will likely spend 35–50% of revenue on ads before finding the right creative. Set your ad spend percentage to what you expect at steady state, not your worst-case testing phase — but be honest about what "steady state" means for your store.</p>
+
+      <h2>What a Healthy Margin Looks Like</h2>
+      <p>There are no universal rules, but here is how most experienced dropshippers interpret their margins:</p>
+      <ul>
+        <li><strong>Net margin above 25%:</strong> Strong. This product can sustain scaling and absorb ad cost variance. You have room to test creative, absorb a bad week, and still profit.</li>
+        <li><strong>Net margin 15–25%:</strong> Viable. Profitable, but thin. A 10% rise in CPM or a bad product batch will compress this quickly. Only scale products in this range once you have proven creative.</li>
+        <li><strong>Net margin below 15%:</strong> Danger zone. One spike in ad costs or a 5% return rate pushes this negative. Raise your price or find a cheaper supplier before scaling.</li>
+        <li><strong>Break-even ROAS above 3×:</strong> High risk. Most ad accounts sustain 2–2.5× ROAS at scale. If your break-even ROAS is 3× or higher, your margin relies on exceptional ad performance that is difficult to sustain.</li>
+      </ul>
+
+      <h2>GST and Its Effect on Your Margin</h2>
+      <p>If your store exceeds $75,000 AUD in annual turnover, you must register for GST in Australia. Once registered, 1/11th of each sale is GST that you collect and remit to the ATO — it is not your revenue. A product selling for $55 AUD includes $5 of GST (if GST-registered). Your effective revenue per sale is $50, not $55.</p>
+      <p>The calculator above uses the sale price as-entered. If you are GST-registered, enter your ex-GST sale price (sale price ÷ 1.1) in the Sale Price field to get accurate net profit. Read our guide on <a href="/blog/best-dropshipping-products-australia-2026">best dropshipping products for Australia</a> for more on AU-specific tax considerations.</p>
+
+      <h2>The 3× Rule: Quick Sanity Check</h2>
+      <p>Before running the full calculator, use this quick heuristic: your sale price should be at least 3× your landed cost (product + shipping). Below that multiple, it is very difficult to generate positive net margin at typical AU ad spend rates. This is why product selection matters — if a product's market price is only 2× your landed cost, move on.</p>
+
+      <div class="cta-inline">
+        <h3>Automate Your Margin Screening</h3>
+        <p>Manually running the calculator for 20 products takes 20 minutes. The <code>ds margin</code> command in Dropship Tools screens products in seconds — pass a product name and price, and get margin verdict, breakeven ROAS, and a comparison against the AU category benchmark.</p>
+        <button class="cta-btn" onclick="startCheckout(this)">Try Dropship Tools free — find your first winning product in 10 minutes</button>
+      </div>
+
+      <h2>Related Reading</h2>
+      <p>Found a product with a margin that works? The next step is making sure there's real demand for it. Read <a href="/blog/how-to-find-winning-dropshipping-products">How to Find Winning Dropshipping Products in 2026 (Data-Driven Method)</a> for the full research framework — trend analysis, supplier vetting, and competition sizing.</p>
+      <p>Looking for categories that reliably hit strong margin thresholds in Australia? <a href="/blog/best-dropshipping-products-australia-2026">Best Dropshipping Products to Sell in Australia 2026</a> lists 15 categories with AU-specific source cost, sell price, and margin data.</p>
+    </div>
+
+    <div class="container">
+      <section class="cta-section">
+        <h2>Find Products That Hit Your Margin Target</h2>
+        <p>Automate trend checks, margin screening, and competition analysis — before you spend a dollar on ads.</p>
+        <button class="cta-btn" onclick="startCheckout(this)">Try Dropship Tools free — find your first winning product in 10 minutes</button>
+      </section>
+    </div>
+  </article>
+
+  <footer>
+    <div class="container">
+      <p>Dropship Tools &mdash; MIT License</p>
+    </div>
+  </footer>
+
+  <script>
+    const ids = ['productCost','shippingCost','platformFeePercent','platformFeeFixed','adSpendPercent','salePrice'];
+
+    function fmt(n) { return '$' + Math.abs(n).toFixed(2); }
+    function fmtPct(n) { return n.toFixed(1) + '%'; }
+
+    function calc() {
+      const productCost = parseFloat(document.getElementById('productCost').value) || 0;
+      const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
+      const platformFeePercent = parseFloat(document.getElementById('platformFeePercent').value) || 0;
+      const platformFeeFixed = parseFloat(document.getElementById('platformFeeFixed').value) || 0;
+      const adSpendPercent = parseFloat(document.getElementById('adSpendPercent').value) || 0;
+      const salePrice = parseFloat(document.getElementById('salePrice').value) || 0;
+
+      if (salePrice <= 0) {
+        reset();
+        return;
+      }
+
+      const platformFee = (salePrice * platformFeePercent / 100) + platformFeeFixed;
+      const adSpend = salePrice * adSpendPercent / 100;
+      const netProfit = salePrice - productCost - shippingCost - platformFee - adSpend;
+      const netMarginPct = (netProfit / salePrice) * 100;
+      const breakEvenRoas = adSpend > 0 ? salePrice / adSpend : null;
+
+      // Update result cards
+      const profitEl = document.getElementById('netProfit');
+      const marginEl = document.getElementById('netMargin');
+      const roasEl = document.getElementById('breakEvenRoas');
+
+      profitEl.textContent = (netProfit >= 0 ? '' : '-') + '$' + Math.abs(netProfit).toFixed(2);
+      marginEl.textContent = fmtPct(netMarginPct);
+      roasEl.textContent = breakEvenRoas ? breakEvenRoas.toFixed(1) + '×' : '—';
+
+      // Color net profit
+      profitEl.style.color = netProfit >= 0 ? 'var(--green)' : 'var(--red)';
+      marginEl.style.color = netMarginPct >= 25 ? 'var(--green)' : netMarginPct >= 15 ? 'var(--yellow)' : 'var(--red)';
+
+      // Verdict
+      const verdictBar = document.getElementById('verdictBar');
+      const verdictIcon = document.getElementById('verdictIcon');
+      const verdictText = document.getElementById('verdictText');
+
+      verdictBar.className = 'verdict-bar';
+      if (netMarginPct >= 25) {
+        verdictBar.classList.add('strong');
+        verdictIcon.textContent = '✓';
+        verdictText.innerHTML = '<strong>STRONG</strong> — <span>Net margin above 25%. This product has room to scale and absorb ad cost variance.</span>';
+      } else if (netMarginPct >= 15) {
+        verdictBar.classList.add('ok');
+        verdictIcon.textContent = '⚠';
+        verdictText.innerHTML = '<strong>OK</strong> — <span>Net margin ' + fmtPct(netMarginPct) + '. Profitable but thin. Only scale once you have proven creative.</span>';
+      } else {
+        verdictBar.classList.add('red');
+        verdictIcon.textContent = '✕';
+        verdictText.innerHTML = '<strong>RED</strong> — <span>Net margin ' + fmtPct(netMarginPct) + '. Raise your price or reduce COGS before scaling this product.</span>';
+      }
+
+      // Breakdown
+      document.getElementById('costBreakdown').style.display = 'block';
+      document.getElementById('bSalePrice').textContent = fmt(salePrice);
+      document.getElementById('bProductCost').textContent = fmt(productCost);
+      document.getElementById('bShipping').textContent = fmt(shippingCost);
+      document.getElementById('bPlatformFee').textContent = fmt(platformFee);
+      document.getElementById('bAdSpend').textContent = fmt(adSpend);
+      document.getElementById('bNetProfit').textContent = (netProfit >= 0 ? '' : '-') + '$' + Math.abs(netProfit).toFixed(2);
+      document.getElementById('bNetProfit').style.color = netProfit >= 0 ? 'var(--green)' : 'var(--red)';
+    }
+
+    function reset() {
+      ['netProfit','netMargin','breakEvenRoas'].forEach(id => {
+        const el = document.getElementById(id);
+        el.textContent = '—';
+        el.style.color = '';
+      });
+      const verdictBar = document.getElementById('verdictBar');
+      verdictBar.className = 'verdict-bar empty';
+      document.getElementById('verdictIcon').textContent = '—';
+      document.getElementById('verdictText').innerHTML = 'Enter your numbers above to see your margin verdict';
+      document.getElementById('costBreakdown').style.display = 'none';
+    }
+
+    ids.forEach(id => document.getElementById(id).addEventListener('input', calc));
+    calc(); // Run on load with defaults
+
+    async function startCheckout(btn) {
+      btn.disabled = true;
+      btn.textContent = 'Redirecting...';
+      try {
+        const res = await fetch('/api/checkout', { method: 'POST' });
+        if (res.redirected) {
+          window.location.href = res.url;
+        } else if (res.ok) {
+          const data = await res.json();
+          if (data.url) window.location.href = data.url;
+        } else {
+          const err = await res.json().catch(() => ({}));
+          alert('Checkout unavailable: ' + (err.error || res.statusText));
+          btn.disabled = false;
+          btn.textContent = 'Try Dropship Tools free \u2014 find your first winning product in 10 minutes';
+        }
+      } catch (e) {
+        alert('Network error. Please try again.');
+        btn.disabled = false;
+        btn.textContent = 'Try Dropship Tools free \u2014 find your first winning product in 10 minutes';
+      }
+    }
+  </script>
+</body>
+</html>
