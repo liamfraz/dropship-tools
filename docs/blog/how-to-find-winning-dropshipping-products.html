@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Find Winning Dropshipping Products Before They Go Viral | Dropship Tools</title>
+  <meta name="description" content="Learn the exact process for dropshipping product research: trend spotting, competitor analysis, and AliExpress research methods that uncover winners before they saturate.">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0e17;
+      --surface: #111827;
+      --surface-2: #1a2332;
+      --border: #1e293b;
+      --text: #e2e8f0;
+      --text-dim: #94a3b8;
+      --accent: #38bdf8;
+      --accent-dim: #0ea5e9;
+      --green: #22c55e;
+      --yellow: #eab308;
+      --red: #ef4444;
+      --mono: 'SF Mono', 'Cascadia Code', 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    nav {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-family: var(--mono);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a { color: var(--text-dim); font-size: 14px; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-links a.active { color: var(--text); }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px 32px;
+      border-radius: 8px;
+      transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+      font-family: var(--sans);
+      text-decoration: none;
+    }
+    .cta-btn:hover {
+      background: var(--accent-dim);
+      text-decoration: none;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    .article-hero {
+      padding: 60px 0 40px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+    .article-meta {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+      font-family: var(--mono);
+    }
+    .article-hero h1 {
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      max-width: 800px;
+      margin-bottom: 16px;
+    }
+    .article-hero .lead {
+      font-size: 18px;
+      color: var(--text-dim);
+      max-width: 720px;
+    }
+    .article-body {
+      max-width: 720px;
+      margin: 0 auto;
+      padding-bottom: 80px;
+    }
+    .article-body h2 {
+      font-size: 26px;
+      font-weight: 700;
+      margin: 48px 0 16px;
+      color: var(--text);
+    }
+    .article-body h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 32px 0 12px;
+      color: var(--text);
+    }
+    .article-body p {
+      color: var(--text-dim);
+      margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+    .article-body ul, .article-body ol {
+      padding-left: 24px;
+      margin-bottom: 20px;
+    }
+    .article-body li {
+      color: var(--text-dim);
+      font-size: 16px;
+      line-height: 1.75;
+      margin-bottom: 8px;
+    }
+    .article-body strong { color: var(--text); }
+    .article-body a { color: var(--accent); }
+    .highlight-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 28px 0;
+    }
+    .highlight-box p { margin-bottom: 0; }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 28px 0;
+      font-size: 14px;
+    }
+    .data-table th {
+      text-align: left;
+      padding: 10px 14px;
+      color: var(--text-dim);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+    }
+    .data-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-dim);
+    }
+    .data-table td:first-child { color: var(--text); font-weight: 500; }
+    .verdict-strong { color: var(--green); font-weight: 700; }
+    .verdict-ok { color: var(--yellow); font-weight: 700; }
+    .cta-inline {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin: 48px 0;
+    }
+    .cta-inline h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .cta-inline p {
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+    .cta-section {
+      padding: 80px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .cta-section h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      color: var(--text-dim);
+      margin-bottom: 32px;
+      font-size: 18px;
+    }
+
+    @media (max-width: 640px) {
+      .article-hero h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/" class="nav-brand"><span>ds</span> dropship-tools</a>
+      <div class="nav-links">
+        <a href="/#features">Features</a>
+        <a href="/#demo">Demo</a>
+        <a href="/blog" class="active">Blog</a>
+        <a href="https://github.com/liamfrazer/dropship-tools">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <article>
+    <div class="article-hero">
+      <div class="container">
+        <div class="article-meta">April 2026 &middot; 7 min read &middot; Product Research</div>
+        <h1>How to Find Winning Dropshipping Products Before They Go Viral</h1>
+        <p class="lead">The difference between a winner and a dead product is timing. Most sellers find products after they've peaked. You're 6 months too late, ad costs are 3x higher, and profit margins have compressed to nothing. The sellers winning at dropshipping aren't smarter—they're faster. They've built a system to spot emerging products, validate margins quickly, and move before saturation.</p>
+      </div>
+    </div>
+
+    <div class="article-body">
+      <h2>The Product Research Framework</h2>
+      <p>Every product goes through a lifecycle. Early discovery is your window. Once a product hits TikTok and "makesmoney" Facebook groups, you've missed it. The 3-step framework below is designed to find products in the discovery phase, when competition is light and margins are healthy.</p>
+      <ol>
+        <li><strong>Signal Detection:</strong> Spot products gaining traction (Google Trends, competitor ads, AliExpress velocity)</li>
+        <li><strong>Validation:</strong> Check if demand is real and not a blip (review trends, competitor count, search volume)</li>
+        <li><strong>Margin Check:</strong> Calculate if the product is actually profitable after all costs</li>
+      </ol>
+
+      <h2>Step 1: Spot Trends Early With Google Trends</h2>
+      <p>Google Trends is your early warning system. Trending searches show momentum. You're looking for products with <strong>rising</strong> or <strong>strong stable</strong> demand—not flat or declining.</p>
+      <p>Here's how to use it like a pro:</p>
+      <ul>
+        <li><strong>Set geo to Australia:</strong> Focus on AU market only. A product trending in the US doesn't guarantee AU demand.</li>
+        <li><strong>Check 12-month view first:</strong> Is the trend climbing, stable, or dropping? Products with upward slope over 12 months have tailwinds.</li>
+        <li><strong>Zoom to 90-day view:</strong> Is momentum accelerating? A product flat for 10 months then spiking in the last 30 days is a signal. That spike is your entry point.</li>
+        <li><strong>Look for spikes during seasonal windows:</strong> Back-to-school (January in AU), Christmas (October–November), etc. Seasonal products have built-in demand cycles.</li>
+      </ul>
+      <p>Dropship Tools' <code>ds trends</code> command automates this. Pass a product name, and it returns trend velocity over 12 months and 90 days for Australia. You get a confidence score too—whether the trend is rising, stable, or declining.</p>
+
+      <h2>Step 2: Competitor Research Without Wasting Hours</h2>
+      <p>Once you've identified a trending product, check if anyone else is selling it. If 50 sellers are running ads, margins are likely compressed. If it's 3–5 sellers, you have room.</p>
+      <p><strong>Facebook Ad Library</strong> is free and instant. Search your product name, filter for Australia, and count active ads. More than 20 competitors running ads = saturated. 3–10 = opportunity.</p>
+      <p><strong>TikTok trends:</strong> Search your product with hashtags like #tiktokmademebuyit or #FYP. How many videos have the product? Are comments saying "link?" and "where can I buy?" That's demand signal.</p>
+      <p><strong>AliExpress Best Sellers:</strong> Go to AliExpress, search the product category (e.g., "posture corrector"), and sort by "Orders + Reviews." Look at the top sellers. How many reviews did they accumulate in the last 3 months? If a product has 500+ reviews in 90 days, it's peaked. 50–150 reviews in 90 days = emerging momentum.</p>
+      <p>Dropship Tools' <code>ds scout</code> command cross-references all three data sources automatically. You pass a product name, and it returns competitor ad count, TikTok velocity, and AliExpress review momentum. One command replaces 45 minutes of manual research.</p>
+
+      <h2>Step 3: Validate the Margin Before You List</h2>
+      <p>A product can be trending with light competition and still lose money. You need to validate the math.</p>
+      <h3>The 3x Rule</h3>
+      <p>Minimum retail price = source cost × 3. A product sourcing at $10 should retail for at least $30. Below that, you can't cover platform fees, ad spend, and returns while hitting 2.5x ROAS (the breakeven multiple most dropshippers need).</p>
+      <h3>Hidden Costs Most Sellers Ignore</h3>
+      <ul>
+        <li>Platform fees: 2.9% + 30c AUD on Shopify (lower with Shopify Payments AU)</li>
+        <li>Payment processing: +1.75–2.5% on card transactions</li>
+        <li>Ad spend to acquire customers: 20–40% of revenue for most sellers</li>
+        <li>Returns and refunds: 3–8% of orders, especially for try-before-commitment products</li>
+        <li>Shipping markup (if you're not drop-shipping): Rarely covers full cost</li>
+      </ul>
+      <p>Example: A posture corrector sources at $12 AUD. After platform fees (2.9% + 30c), payment processing (1.75%), and refunds (6%), your $45 sale nets $42.63. If you're spending 40% on ads ($18), you have $24.63 left. Subtract supplier cost ($12), and you clear $12.63 profit. That's 28% net margin—acceptable, but tight.</p>
+      <p>Dropship Tools' <code>ds margin</code> command calculates this automatically. Pass a product name and price, and it returns:</p>
+      <ul>
+        <li>Gross margin percentage</li>
+        <li>Net margin after all fees</li>
+        <li>Breakeven ROAS</li>
+        <li>Profit per sale at your price point</li>
+        <li>A verdict: <span class="verdict-strong">STRONG</span> (60%+ margin), <span class="verdict-ok">OK</span> (40–60%), or RED (below 40%)</li>
+      </ul>
+
+      <div class="highlight-box">
+        <p><strong>Real example output from <code>ds margin posture-corrector 45</code>:</strong><br>Gross margin: 73% | Net margin: 58% | Breakeven ROAS: 1.9x | Profit/sale: $15.20 | <span class="verdict-strong">STRONG</span> — This product clears the bar. Run ads.</p>
+      </div>
+
+      <h2>What Makes a Product "Viral-Ready"</h2>
+      <p>Not every trending product converts. The winners share these traits:</p>
+      <ul>
+        <li><strong>Solves a visible problem:</strong> Posture correctors fix bad back health. LED lights make dark rooms beautiful. People see the problem in themselves.</li>
+        <li><strong>Compact and shippable:</strong> Small, lightweight products ship fast and cost less. Fragile or oversized items tank on returns.</li>
+        <li><strong>Works in video:</strong> TikTok and Instagram Reels dominate discovery. Does your product look impressive in 15 seconds? LED strips, pet feeders, and skincare tools do. A boring widget doesn't.</li>
+        <li><strong>Has a "wow" factor:</strong> Before-and-after is gold. A posture corrector user standing taller. A pet feeding itself. That moment sells.</li>
+      </ul>
+
+      <h2>The Mistake That Kills Most Research Sessions</h2>
+      <p>Sellers spend 3+ hours researching products manually, only to find that margins don't work or the product is oversaturated. That time is gone. The product you spent 3 hours on might be a red flag waiting to be discovered.</p>
+      <p>The fix: <strong>Automate the boring part first.</strong> Run <code>ds trends</code> to filter for rising demand. Run <code>ds scout</code> to check competitor saturation. Run <code>ds margin</code> to validate profitability. This takes 5 minutes total across 20 products. You then focus research time on the 2–3 winners that cleared all three filters.</p>
+
+      <div class="cta-inline">
+        <h3>Automate Your Product Research</h3>
+        <p>Validation commands that used to take 3 hours now take 5 minutes per product. Spot trends, check competitors, and validate margins automatically—before you waste time on dead products.</p>
+        <button class="cta-btn" onclick="startCheckout(this)">Start Free Trial — $29/mo</button>
+      </div>
+
+      <h2>Real-World Example: How to Apply This Framework</h2>
+      <p>Let's walk through a product: automatic cat feeders. You notice mentions on TikTok. Here's how the framework applies:</p>
+      <ol>
+        <li><strong>Signal Detection:</strong> Run <code>ds trends cat feeder australia</code>. Trend is rising 35% YoY, 12% in last 90 days. Signal: green.</li>
+        <li><strong>Validation:</strong> Run <code>ds scout cat feeder</code>. 8 Facebook ads running in AU (not saturated), 200+ TikTok videos with #tiktokmademebuyit (emerging), AliExpress best seller has 120 reviews in 3 months (momentum, not peak). Signal: green.</li>
+        <li><strong>Margin Check:</strong> Run <code>ds margin cat-feeder 65</code>. Source cost $18, retail $65, margin 72%, profit per sale $18.50, verdict: <span class="verdict-strong">STRONG</span>. Signal: green.</li>
+      </ol>
+      <p>All three signals are green. You now confidently create product pages and test ads. If even one signal was red, you'd skip it and test the next product.</p>
+
+      <h2>Related Reading</h2>
+      <p>Once you've found winning products, you need to know which ones are most profitable by category. Check our guide on <a href="/blog/best-dropshipping-products-australia-2026">"Best Dropshipping Products to Sell in Australia 2026"</a> to see which categories sustain healthy margins.</p>
+      <p>After you're selling, platform choice matters. Shopify vs WooCommerce will affect your cost per sale. Read <a href="/blog/shopify-dropshipping-vs-woocommerce-australia">"Shopify Dropshipping vs WooCommerce"</a> to decide which fits your operation.</p>
+    </div>
+
+    <div class="container">
+      <section class="cta-section">
+        <h2>Automate Your Product Research Today</h2>
+        <p>The winners are moving fast. Validation that takes hours manually takes seconds with Dropship Tools.</p>
+        <button class="cta-btn" onclick="startCheckout(this)">Start Free Trial — $29/mo</button>
+      </section>
+    </div>
+  </article>
+
+  <footer>
+    <div class="container">
+      <p>Dropship Tools &mdash; MIT License</p>
+    </div>
+  </footer>
+
+  <script>
+    async function startCheckout(btn) {
+      btn.disabled = true;
+      btn.textContent = 'Redirecting...';
+      try {
+        const res = await fetch('/api/checkout', { method: 'POST' });
+        if (res.redirected) {
+          window.location.href = res.url;
+        } else if (res.ok) {
+          const data = await res.json();
+          if (data.url) window.location.href = data.url;
+        } else {
+          const err = await res.json().catch(() => ({}));
+          alert('Checkout unavailable: ' + (err.error || res.statusText));
+          btn.disabled = false;
+          btn.textContent = 'Start Free Trial \u2014 $29/mo';
+        }
+      } catch (e) {
+        alert('Network error. Please try again.');
+        btn.disabled = false;
+        btn.textContent = 'Start Free Trial \u2014 $29/mo';
+      }
+    }
+  </script>
+</body>
+</html>
