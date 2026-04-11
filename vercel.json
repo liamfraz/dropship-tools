@@ -1,0 +1,19 @@
+{
+  "outputDirectory": "docs",
+  "framework": null,
+  "buildCommand": null,
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/success",
+      "dest": "/success.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}

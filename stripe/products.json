@@ -1,0 +1,18 @@
+{
+  "products": [
+    {
+      "name": "Dropship Tools Pro",
+      "description": "Full access to Dropship Tools CLI — product scouting, margin analysis, AI listings, video scripts, and performance dashboard.",
+      "mode": "test",
+      "price": {
+        "amount": 2900,
+        "currency": "usd",
+        "interval": "month",
+        "trial_period_days": 7
+      },
+      "price_id": "REPLACE_WITH_STRIPE_PRICE_ID",
+      "product_id": "REPLACE_WITH_STRIPE_PRODUCT_ID"
+    }
+  ],
+  "_instructions": "Run 'node stripe/setup.js' with STRIPE_SECRET_KEY set to create this product in Stripe test mode. Then copy the price_id to STRIPE_PRICE_ID in your Vercel environment."
+}

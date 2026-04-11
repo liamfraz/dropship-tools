@@ -269,10 +269,52 @@
       padding: 14px 32px;
       border-radius: 8px;
       transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+      font-family: var(--sans);
+      text-decoration: none;
     }
     .cta-btn:hover {
       background: var(--accent-dim);
       text-decoration: none;
+    }
+    .cta-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .trial-note {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-top: 12px;
+    }
+    .cta-btn-secondary {
+      display: inline-block;
+      background: transparent;
+      color: var(--text-dim);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, color 0.2s;
+      margin-left: 12px;
+    }
+    .cta-btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--text);
+      text-decoration: none;
+    }
+    .hero-cta-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero-cta-stripe {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
     }
 
     /* Footer */
@@ -310,10 +352,16 @@
     <div class="container">
       <h1>Dropshipping automation<br><span>from your terminal</span></h1>
       <p>Product research, margin analysis, AI-generated listings, and performance tracking. One CLI, zero browser tabs.</p>
-      <div class="hero-cta">
-        <div class="install-box">
-          <span class="prompt">$</span>
-          <code>pip install dropship-tools</code>
+      <div class="hero-cta-group">
+        <div class="hero-cta-stripe">
+          <button class="cta-btn" onclick="startCheckout(this)">Start Free Trial &mdash; $29/mo</button>
+          <div class="trial-note">7-day free trial &middot; Cancel anytime &middot; No charge until trial ends</div>
+        </div>
+        <div class="hero-cta">
+          <div class="install-box">
+            <span class="prompt">$</span>
+            <code>pip install dropship-tools</code>
+          </div>
         </div>
       </div>
     </div>
@@ -457,9 +505,11 @@
 
   <section class="cta">
     <div class="container">
-      <h2>Start finding winners</h2>
-      <p>Python 3.12+ required. Works on macOS, Linux, and Windows.</p>
-      <a href="https://github.com/liamfrazer/dropship-tools" class="cta-btn">View on GitHub</a>
+      <h2>Start finding winners today</h2>
+      <p>7-day free trial. $29/mo after. Cancel anytime.</p>
+      <button class="cta-btn" onclick="startCheckout(this)">Start Free Trial &mdash; $29/mo</button>
+      <a href="https://github.com/liamfrazer/dropship-tools" class="cta-btn-secondary">View on GitHub</a>
+      <p class="trial-note">No charge until your 7-day trial ends &middot; Python 3.12+ required</p>
     </div>
   </section>
 
@@ -469,5 +519,29 @@
     </div>
   </footer>
 
+  <script>
+    async function startCheckout(btn) {
+      btn.disabled = true;
+      btn.textContent = 'Redirecting...';
+      try {
+        const res = await fetch('/api/checkout', { method: 'POST' });
+        if (res.redirected) {
+          window.location.href = res.url;
+        } else if (res.ok) {
+          const data = await res.json();
+          if (data.url) window.location.href = data.url;
+        } else {
+          const err = await res.json().catch(() => ({}));
+          alert('Checkout unavailable: ' + (err.error || res.statusText));
+          btn.disabled = false;
+          btn.textContent = 'Start Free Trial \u2014 $29/mo';
+        }
+      } catch (e) {
+        alert('Network error. Please try again.');
+        btn.disabled = false;
+        btn.textContent = 'Start Free Trial \u2014 $29/mo';
+      }
+    }
+  </script>
 </body>
 </html>
